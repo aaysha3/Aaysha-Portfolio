@@ -262,11 +262,14 @@ function ProjectCard({ project, index }) {
 
   return (
     <Reveal delay={index * 0.12}>
-      <div
+      <a
         ref={ref}
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
         onMouseMove={handleMove}
         onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-        className="rounded-3xl p-8 h-full"
+        className="rounded-3xl p-8 h-full block"
         style={{
           background: `radial-gradient(circle at ${glow.x}% ${glow.y}%, rgba(193,53,132,0.18), transparent 60%), ${colors.panel}`,
           border: "1px solid rgba(245,241,236,0.08)",
@@ -276,6 +279,8 @@ function ProjectCard({ project, index }) {
             tilt.x !== 0 || tilt.y !== 0
               ? "0 25px 50px -12px rgba(193,53,132,0.35)"
               : "0 10px 30px -15px rgba(0,0,0,0.5)",
+          textDecoration: "none",
+          color: "inherit",
         }}
       >
         <div className="flex items-start justify-between mb-6">
@@ -301,7 +306,7 @@ function ProjectCard({ project, index }) {
             </span>
           ))}
         </div>
-      </div>
+      </a>
     </Reveal>
   );
 }
@@ -411,6 +416,7 @@ export default function DevPortfolio() {
       description:
         "A fully responsive personal portfolio built with modern HTML5, CSS3, and JavaScript, with clean UI/UX for showcasing projects and skills across devices, deployed on GitHub Pages.",
       stack: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+      link: "https://github.com/aaysha3/Aaysha-Portfolio",
     },
     {
       tag: "AI / ML Project",
@@ -418,6 +424,7 @@ export default function DevPortfolio() {
       description:
         "An AI-based image manipulation detection system that applies image processing and forensic analysis techniques to evaluate the authenticity of visual content and flag tampering.",
       stack: ["Python", "Machine Learning", "Image Processing", "Computer Vision"],
+      link: "https://github.com/aaysha3/Image-detection",
     },
   ];
 
@@ -459,7 +466,7 @@ export default function DevPortfolio() {
   ];
 
   const socials = [
-    { mono: "GH", label: "GitHub", url: "https://github.com/aaysha3-cyber" },
+    { mono: "GH", label: "GitHub", url: "https://github.com/aaysha3" },
     { mono: "IN", label: "LinkedIn", url: "https://www.linkedin.com/in/aaysha-agarwal-82b0a72a9/" },
     { mono: "X", label: "Twitter / X", url: "#" }, // haven't set this up yet
   ];
