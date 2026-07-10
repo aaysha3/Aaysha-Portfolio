@@ -1,11 +1,44 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Mail, ArrowUpRight, ArrowDown, Sparkles } from "lucide-react";
 
+const GithubIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2.2 6-8a5.3 5.3 0 0 0-1.2-3.8 5 5 0 0 0-.2-3.8s-.9-.3-3 1.2a14.8 14.8 0 0 0-8 0C3 1.3 2 1.6 2 1.6a5 5 0 0 0-.2 3.8 5.3 5.3 0 0 0-1.2 3.8c0 5.8 3 8 6 8a4.8 4.8 0 0 0-1 3.5v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
+
+const LinkedinIcon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
 // quick color palette - tweak these if the vibe ever needs to change
 const colors = {
   bg: "#0A0E1A",
   panel: "#12172A",
-  panelLight: "#1B2138", // not really using this one much anymore, keeping around
+  panelLight: "#1B2138",
   coral: "#FF6B5B",
   magenta: "#C13584",
   violet: "#6C5CE7",
@@ -311,29 +344,7 @@ function ProjectCard({ project, index }) {
   );
 }
 
-function SkillBar({ label, percent, index }) {
-  const [ref, visible] = useOnScreen();
 
-  return (
-    <div ref={ref} className="mb-6">
-      <div className="flex justify-between mb-2">
-        <span style={{ color: colors.ivory, fontFamily: "'Space Grotesk', sans-serif" }}>{label}</span>
-        <span style={{ color: colors.gold, fontFamily: "'JetBrains Mono', monospace", fontSize: "0.85rem" }}>{percent}%</span>
-      </div>
-      <div className="w-full rounded-full overflow-hidden" style={{ height: 6, background: "rgba(245,241,236,0.08)" }}>
-        <div
-          style={{
-            height: "100%",
-            width: visible ? `${percent}%` : "0%",
-            background: gradient,
-            borderRadius: 999,
-            transition: `width 1.2s cubic-bezier(0.16,1,0.3,1) ${index * 0.1}s`,
-          }}
-        />
-      </div>
-    </div>
-  );
-}
 
 function TimelineItem({ item, index, isLast }) {
   const [ref, visible] = useOnScreen();
@@ -429,11 +440,11 @@ export default function DevPortfolio() {
   ];
 
   const skills = [
-    { label: "Programming (Java, Python, JS, C)", percent: 78 },
-    { label: "Web Development (HTML, CSS, JS, DOM)", percent: 80 },
-    { label: "Databases (MySQL, MongoDB, SQL)", percent: 68 },
-    { label: "Core CS (DSA, OOP, DBMS, OS)", percent: 74 },
-    { label: "Git & Dev Tools", percent: 75 },
+    { category: "Languages", items: ["Java", "Python", "JavaScript", "C"] },
+    { category: "Web Tech", items: ["HTML5", "CSS3", "JavaScript", "DOM Manipulation"] },
+    { category: "Databases", items: ["MySQL", "MongoDB", "SQL"] },
+    { category: "Core Computer Science", items: ["Data Structures & Algorithms", "OOP", "DBMS", "Operating Systems"] },
+    { category: "Tools & Platforms", items: ["Git", "GitHub", "GitHub Pages", "VS Code"] },
   ];
 
   const marqueeItems = ["Java", "Python", "JavaScript", "C", "HTML5", "CSS3", "MySQL", "MongoDB", "Git", "GitHub", "DSA", "OOP", "DBMS"];
@@ -466,9 +477,8 @@ export default function DevPortfolio() {
   ];
 
   const socials = [
-    { mono: "GH", label: "GitHub", url: "https://github.com/aaysha3" },
-    { mono: "IN", label: "LinkedIn", url: "https://www.linkedin.com/in/aaysha-agarwal-82b0a72a9/" },
-    { mono: "X", label: "Twitter / X", url: "#" }, // haven't set this up yet
+    { id: "github", label: "GitHub", url: "https://github.com/aaysha3" },
+    { id: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/aaysha-agarwal-82b0a72a9/" },
   ];
 
   const CONTACT_EMAIL = "aaysha2103@gmail.com";
@@ -739,9 +749,43 @@ export default function DevPortfolio() {
             </h2>
           </Reveal>
 
-          <div className="grid md:grid-cols-2 gap-x-16 gap-y-2 mb-16">
-            {skills.map((s, i) => (
-              <SkillBar key={s.label} label={s.label} percent={s.percent} index={i} />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {skills.map((skillGroup, i) => (
+              <Reveal key={skillGroup.category} delay={i * 0.08}>
+                <div
+                  className="p-6 rounded-2xl h-full"
+                  style={{
+                    background: colors.panel,
+                    border: "1px solid rgba(245,241,236,0.06)",
+                  }}
+                >
+                  <h3
+                    className="text-lg font-semibold mb-4"
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      color: colors.gold,
+                    }}
+                  >
+                    {skillGroup.category}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {skillGroup.items.map((item) => (
+                      <span
+                        key={item}
+                        className="px-3 py-1.5 rounded-lg text-xs"
+                        style={{
+                          fontFamily: "'JetBrains Mono', monospace",
+                          background: "rgba(245,241,236,0.04)",
+                          border: "1px solid rgba(245,241,236,0.08)",
+                          color: colors.ivoryDim,
+                        }}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -872,37 +916,36 @@ export default function DevPortfolio() {
           </MagneticButton>
 
           <div className="flex items-center justify-center gap-6">
-            {socials.map(({ mono, label, url }) => (
-              <a
-                key={label}
-                href={url}
-                target={url !== "#" ? "_blank" : undefined}
-                rel={url !== "#" ? "noopener noreferrer" : undefined}
-                className="w-12 h-12 rounded-full flex items-center justify-center"
-                style={{
-                  border: "1px solid rgba(245,241,236,0.15)",
-                  color: colors.ivoryDim,
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: "0.8rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.02em",
-                  transition: "all 0.25s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = colors.gold;
-                  e.currentTarget.style.borderColor = colors.gold;
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = colors.ivoryDim;
-                  e.currentTarget.style.borderColor = "rgba(245,241,236,0.15)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-                aria-label={label}
-              >
-                {mono}
-              </a>
-            ))}
+            {socials.map(({ id, label, url }) => {
+              const IconComponent = id === "github" ? GithubIcon : LinkedinIcon;
+              return (
+                <a
+                  key={label}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-full flex items-center justify-center"
+                  style={{
+                    border: "1px solid rgba(245,241,236,0.15)",
+                    color: colors.ivoryDim,
+                    transition: "all 0.25s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = colors.gold;
+                    e.currentTarget.style.borderColor = colors.gold;
+                    e.currentTarget.style.transform = "translateY(-4px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = colors.ivoryDim;
+                    e.currentTarget.style.borderColor = "rgba(245,241,236,0.15)";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                  aria-label={label}
+                >
+                  <IconComponent size={20} />
+                </a>
+              );
+            })}
           </div>
         </Reveal>
       </section>
