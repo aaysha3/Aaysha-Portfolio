@@ -424,7 +424,7 @@ export default function DevPortfolio() {
       description:
         "An AI-based image manipulation detection system that applies image processing and forensic analysis techniques to evaluate the authenticity of visual content and flag tampering.",
       stack: ["Python", "Machine Learning", "Image Processing", "Computer Vision"],
-      link: "https://github.com/aaysha3/Image-detection",
+      link: "https://github.com/aaysha3/deepfake-media-authenticator",
     },
   ];
 
