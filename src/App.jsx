@@ -430,12 +430,12 @@ export default function DevPortfolio() {
       link: "https://github.com/aaysha3/Aaysha-Portfolio",
     },
     {
-      tag: "AI / ML Project",
-      title: "DeepShield AI",
+      tag: "AI / ML Forensics Project",
+      title: "DeepShield AI (Verimedia)",
       description:
-        "An AI-based image manipulation detection system that applies image processing and forensic analysis techniques to evaluate the authenticity of visual content and flag tampering.",
-      stack: ["Python", "Machine Learning", "Image Processing", "Computer Vision"],
-      link: "https://github.com/aaysha3/deepfake-media-authenticator",
+        "A full-stack media forensics system utilizing Error Level Analysis (ELA), Short-Time Fourier Transforms (STFT), and frame histogram transition metrics to detect manipulated images, audio voice clones, and video splicing.",
+      stack: ["React", "FastAPI", "Python", "SQLite", "Digital Forensics"],
+      link: "https://github.com/aaysha3/Deepfake-media-authenticator",
     },
   ];
 
