@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Mail, ArrowUpRight, ArrowDown, Sparkles } from "lucide-react";
+import profileAvatar from "./assets/profile_avatar.jpg";
 
 const GithubIcon = (props) => (
   <svg
@@ -389,7 +390,7 @@ function TimelineItem({ item, index, isLast }) {
 
 // To use a real photo: drop it in src/assets (e.g. src/assets/profile.jpg),
 // import it up top, then point this at the import instead of null.
-const PROFILE_IMAGE_SRC = null;
+const PROFILE_IMAGE_SRC = profileAvatar;
 
 export default function DevPortfolio() {
   const rawMouse = useMousePosition();
